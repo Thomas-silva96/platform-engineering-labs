@@ -2,140 +2,91 @@
 
 ## 1. Objetivo
 
-Desenvolver conhecimentos fundamentais de Linux para aplicação em Cloud Computing, DevOps, SRE e Platform Engineering.
-
-O primeiro laboratório tem como objetivo compreender a estrutura de diretórios, navegar pelo filesystem e manipular arquivos utilizando o terminal.
+Desenvolver conhecimentos fundamentais de Linux para aplicação em Cloud Computing, DevOps, SRE e Platform Engineering. Neste primeiro laboratório, praticar navegação pelo filesystem e manipulação de arquivos no terminal.
 
 ## 2. Formação
 
-**Curso:** Linux Foundation — Introduction to Linux (LFS101)
-
-**Plataforma:** Linux Foundation
-
-**Início:** 21/09/2026
-
-**Status:** Em andamento
-
-**Progresso:** Linux Philosophy and Concepts
-
-**Link:** https://training.linuxfoundation.org/training/introduction-to-linux/
+- **Curso:** Linux Foundation — Introduction to Linux (LFS101)
+- **Início:** 21/09/2026
+- **Status:** Em andamento, sem conclusão integral ou badge registrado.
+- **Progresso informado:** Linux Philosophy and Concepts.
+- **Curso:** https://training.linuxfoundation.org/training/introduction-to-linux/
 
 ## 3. Ambiente do laboratório
 
-* Sistema operacional: Ubunto 26.04.1
-* Ambiente: WSL2
-* Terminal: PowerShell
-* Diretório de trabalho: `~/platform-labs/session-02`
+- **Sistema operacional:** Ubuntu em WSL2. Versão exata a confirmar com `cat /etc/os-release` (anotação inicial: "Ubunto 26.04.1").
+- **Terminal:** Windows Terminal/PowerShell como aplicativo de acesso; comandos do laboratório executados no shell Linux dentro do WSL2.
+- **Diretório de trabalho:** `~/platform-labs/session-02`, correspondente a `/home/thomaSilva96/platform-labs/session-02` na execução registrada.
 
-## 4. Comandos estudados
+## 4. Comandos estudados e executados
 
-| Comando | Finalidade                                                         |
-| ------- | ------------------------------------------------------------------ |
-| `pwd`   | Exibir o diretório de trabalho atual.                              |
-| `ls`    | Listar arquivos e diretórios.                                      |
-| `cd`    | Alterar o diretório de trabalho.                                   |
-| `mkdir` | Criar diretórios.                                                  |
-| `touch` | Criar um arquivo vazio ou atualizar seus timestamps.               |
-| `cat`   | Exibir ou concatenar o conteúdo de arquivos.                       |
-| `less`  | Visualizar arquivos de forma paginada.                             |
-| `cp`    | Copiar arquivos ou diretórios.                                     |
-| `mv`    | Mover ou renomear arquivos e diretórios.                           |
-| `rm`    | Remover arquivos ou diretórios, conforme os parâmetros utilizados. |
+| Comando | Finalidade |
+| --- | --- |
+| `pwd` | Exibir o caminho absoluto do diretório de trabalho atual. |
+| `ls -la` | Listar entradas, incluindo ocultas, em formato detalhado. |
+| `cd` | Alterar o diretório de trabalho. |
+| `mkdir` / `mkdir -p` | Criar diretórios; `-p` também cria pais ausentes e não falha se o diretório já existir. |
+| `touch` | Criar arquivo vazio ou atualizar timestamps de um arquivo existente. |
+| `printf ... > arquivo` | Gravar texto no arquivo; `>` substitui seu conteúdo existente. |
+| `cat` | Exibir ou concatenar conteúdo de arquivos. |
+| `less` | Ler conteúdo de forma paginada (pressionar `q` para sair). |
+| `cp` | Copiar arquivos; para diretórios, utilizar opção apropriada como `-r` quando necessário. |
+| `mv` | Mover ou renomear arquivos e diretórios. |
+| `rm` | Remover arquivos; diretórios exigem opções apropriadas e cuidados adicionais. |
 
 ## 5. Laboratório prático
 
-O laboratório foi realizado em um diretório isolado para evitar alterações em arquivos pessoais ou de sistema.
+O laboratório foi executado em um diretório isolado, sem alterar arquivos de projetos comerciais ou arquivos de sistema. Foram criados `arquivos/exemplo.txt` e uma cópia, renomeada para `arquivos/resultado.txt`. Ao final, `resultado.txt` foi removido, enquanto `exemplo.txt` permaneceu.
 
-As operações estudadas envolveram:
+### Sequência reproduzível
 
-1. Criação de um diretório de trabalho.
-2. Navegação entre diretórios.
-3. Criação de arquivos.
-4. Escrita e leitura de conteúdo.
-5. Cópia e renomeação.
-6. Listagem e inspeção.
-7. Remoção controlada de um arquivo de teste.
+```bash
+mkdir -p ~/platform-labs/session-02
+cd ~/platform-labs/session-02
+pwd
+mkdir arquivos
+cd arquivos
+touch exemplo.txt
+printf 'Meu primeiro laboratorio Linux\n' > exemplo.txt
+cat exemplo.txt
+cp exemplo.txt copia.txt
+mv copia.txt resultado.txt
+ls -la
+less resultado.txt  # sair com q
+cd ..
+pwd
+ls -la arquivos
+rm arquivos/resultado.txt
+ls -la arquivos
+```
 
-### Validação
-
-Todo o fluxo de criação e modificação direto pelo terminal executando os comandos foi possivel validar e ideintificar o sucesso através do comando ls, onde listamos os arquivos e conforme o comando de criação, alteração ou remoção e possivel validar os resuultados.
+**Validação observada:** `cat exemplo.txt` exibiu `Meu primeiro laboratorio Linux`; a primeira listagem de `arquivos` exibiu `exemplo.txt` e `resultado.txt`, ambos com 31 bytes; depois de `rm`, a listagem exibiu apenas `exemplo.txt`. `pwd` confirmou o diretório de trabalho. Isso demonstra o fluxo de criação, cópia, renomeação, leitura e remoção neste laboratório específico — não valida o sistema Linux inteiro.
 
 ## 6. Aprendizados
 
-Descrever com suas próprias palavras:
-
-* O que é o diretório de trabalho? É a pasta ou local onde se encontra para realização dos processos.
-* Qual é a diferença entre caminhos absolutos e relativos? O caminho absoluto aponta a localização a partir da raiz do sistema, e o relativo depende do diretorio onde está. 
-* Qual é a diferença entre `cp` e `mv`? O cp copiamos arquivos ouu diretórios, enquanto o mv usamos para mover ou renomear arquivos ou diretórios.
-* Por que precisamos ter cuidado com o comando `rm`? Pois esse comando e utilizado para remoção de arquivos ou diretorios
-* Como esses conhecimentos serão úteis na administração de servidores Linux? Eles serão uteis pois é a base de navegação e organização de arquivos no sistema.
+- **Diretório de trabalho:** é o diretório em que o processo do shell está operando; `pwd` mostra seu caminho.
+- **Caminhos absolutos e relativos:** o absoluto começa na raiz `/`; o relativo é interpretado a partir do diretório de trabalho atual. `..` referencia o diretório pai, e `~` é expandido pelo shell para o diretório pessoal.
+- **`cp` e `mv`:** `cp` cria uma cópia, preservando a origem; `mv` desloca ou renomeia a entrada original. Em ambos os casos, o destino deve ser conferido para evitar substituição indesejada.
+- **Risco de `rm`:** pode remover dados importantes e normalmente não os envia para a lixeira. Confirmar o diretório atual e o caminho antes de executar; evitar `sudo` e remoção recursiva em exercícios introdutórios.
+- **Aplicação em servidores:** esses fundamentos ajudam a localizar configurações e logs, conferir arquivos de aplicações e trabalhar com segurança em ambientes Linux. Diagnóstico de processos, serviços e rede ficará para os próximos laboratórios.
 
 ## 7. Erros e troubleshooting
 
-Registrar erros reais encontrados durante o laboratório.
+Não foram observadas falhas durante os comandos executados. Portanto, não há incidente real nem correção a atribuir a esta sessão.
 
-Para cada erro, documentar:
-
-**Sintoma:** o que aconteceu.
-
-**Diagnóstico:** como foi identificada a causa.
-
-**Correção:** qual ação resolveu o problema.
-
-**Validação:** como foi confirmado que a correção funcionou.
-
-Caso nenhum erro tenha ocorrido, registrar que não houve falhas observadas e descrever um risco operacional identificado.
-
-Não teve falhas.
+**Risco operacional identificado:** `rm` ou redirecionamento com `>` no caminho errado pode remover ou substituir conteúdo. Antes de executar, conferir `pwd`, listar o diretório com `ls -la` e validar o caminho desejado. Esse risco foi discutido, mas não foi provocado como falha no laboratório.
 
 ## 8. Decisão técnica
 
-Utilizar um ambiente Linux isolado para os laboratórios, mantendo os projetos comerciais separados das atividades de estudo.
-
-Executar operações potencialmente destrutivas somente em diretórios de teste e evitar o uso desnecessário de privilégios administrativos.
+Utilizar o Ubuntu no WSL2 e diretórios isolados para estudo, mantendo os projetos comerciais separados. Evitar privilégios administrativos desnecessários e executar operações destrutivas apenas sobre arquivos descartáveis do laboratório.
 
 ## 9. Evidências
 
-* GitHub Skills — Review Pull Requests: https://github.com/Thomas-silva96/skills-review-pull-requests
-* GitHub Skills — Resolve Merge Conflicts: https://github.com/Thomas-silva96/skills-resolve-merge-conflicts
-* Laboratório Linux: thomaSilva96@thomas-silva96:~$ mkdir -p ~/platform-labs/session-02
-
-cd ~/platform-labs/session-02
-
-pwd
-/home/thomaSilva96/platform-labs/session-02
-thomaSilva96@thomas-silva96:~/platform-labs/session-02$ mkdir arquivos
-thomaSilva96@thomas-silva96:~/platform-labs/session-02$ cd arquivos
-thomaSilva96@thomas-silva96:~/platform-labs/session-02/arquivos$ touch exemplo.txt
-thomaSilva96@thomas-silva96:~/platform-labs/session-02/arquivos$ printf 'Meu primeiro laboratorio Linux\n' > exemplo.txt
-thomaSilva96@thomas-silva96:~/platform-labs/session-02/arquivos$ cat exemplo.txt
-Meu primeiro laboratorio Linux
-thomaSilva96@thomas-silva96:~/platform-labs/session-02/arquivos$ cp exemplo.txt copia.txt
-thomaSilva96@thomas-silva96:~/platform-labs/session-02/arquivos$ mv copia.txt resultado.txt
-thomaSilva96@thomas-silva96:~/platform-labs/session-02/arquivos$ ls -la
-total 16
-drwxr-xr-x 2 thomaSilva96 thomaSilva96 4096 Sep 21 12:37 .
-drwxr-xr-x 3 thomaSilva96 thomaSilva96 4096 Sep 21 12:35 ..
--rw-r--r-- 1 thomaSilva96 thomaSilva96   31 Sep 21 12:36 exemplo.txt
--rw-r--r-- 1 thomaSilva96 thomaSilva96   31 Sep 21 12:37 resultado.txt
-thomaSilva96@thomas-silva96:~/platform-labs/session-02/arquivos$ less resultado.txt
-thomaSilva96@thomas-silva96:~/platform-labs/session-02/arquivos$ cd ..
-thomaSilva96@thomas-silva96:~/platform-labs/session-02$ pwd
-/home/thomaSilva96/platform-labs/session-02
-thomaSilva96@thomas-silva96:~/platform-labs/session-02$ ls -la arquivos
-total 16
-drwxr-xr-x 2 thomaSilva96 thomaSilva96 4096 Sep 21 12:37 .
-drwxr-xr-x 3 thomaSilva96 thomaSilva96 4096 Sep 21 12:35 ..
--rw-r--r-- 1 thomaSilva96 thomaSilva96   31 Sep 21 12:36 exemplo.txt
--rw-r--r-- 1 thomaSilva96 thomaSilva96   31 Sep 21 12:37 resultado.txt
-thomaSilva96@thomas-silva96:~/platform-labs/session-02$ rm arquivos/resultado.txt
-thomaSilva96@thomas-silva96:~/platform-labs/session-02$ ls -la arquivos
-total 12
-drwxr-xr-x 2 thomaSilva96 thomaSilva96 4096 Sep 21 12:41 .
-drwxr-xr-x 3 thomaSilva96 thomaSilva96 4096 Sep 21 12:35 ..
--rw-r--r-- 1 thomaSilva96 thomaSilva96   31 Sep 21 12:36 exemplo.txt
-thomaSilva96@thomas-silva96:~/platform-labs/session-02$
+- [GitHub Skills — Review Pull Requests](https://github.com/Thomas-silva96/skills-review-pull-requests) — exercício concluído.
+- [GitHub Skills — Resolve Merge Conflicts](https://github.com/Thomas-silva96/skills-resolve-merge-conflicts) — exercício concluído.
+- Captura de terminal enviada na conversa de mentoria de 21/09/2026 e comandos/saídas essenciais reproduzidos na seção 5. O laboratório local não foi executado por CI.
+- [PR #3 — publicação inicial deste README](https://github.com/Thomas-silva96/platform-engineering-labs/pull/3).
 
 ## 10. Próxima etapa
 
-Aprofundar Linux com foco em processos, serviços, permissões, conectividade, logs e troubleshooting.
+Praticar usuários, grupos, permissões e ownership em ambiente isolado. Depois, avançar para processos, serviços, conectividade, logs e troubleshooting, mantendo a conclusão integral do LFS101 como objetivo de longo prazo.
